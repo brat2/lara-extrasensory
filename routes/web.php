@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainController::class, 'start']);
+
+Route::get('/go', [MainController::class, 'makeGuess']);
+
+Route::get('/guess', [MainController::class, 'showGuess']);
+
+Route::post('/answer', [MainController::class, 'setResult']);
+
+Route::get('', [MainController::class, 'showResult']);
