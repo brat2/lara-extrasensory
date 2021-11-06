@@ -14,12 +14,12 @@ use App\Http\Controllers\MainController;
 |
 */
 
-Route::get('/', [MainController::class, 'start']);
+Route::get('/', [MainController::class, 'start'])->name('start');
 
-Route::get('/go', [MainController::class, 'makeGuess']);
+Route::get('/go', [MainController::class, 'makeGuess'])->name('makeGuess');
 
-Route::get('/guess', [MainController::class, 'showGuess']);
+Route::get('/guess', [MainController::class, 'showGuess'])->name('showGuess');
 
-Route::post('/answer', [MainController::class, 'setResult']);
+Route::post('/answer', [MainController::class, 'setResult'])->name('setResult');
 
-Route::get('', [MainController::class, 'showResult']);
+Route::get('/result', [MainController::class, 'showResult'])->name('showResult');
