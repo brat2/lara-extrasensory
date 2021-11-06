@@ -2,15 +2,17 @@
 
 namespace App\Http\Services;
 
+use App\Models\Extrasens;
 use App\Http\Services\Sess;
+use Illuminate\Http\Request;
 
 class Extrasensory
 {
   private $extrasensList = [];
 
-  public function __construct(array $names)
+  public function __construct(Request $request, array $names)
   {
-    if (isset(session('extrasensList'))) {
+    if ($request->session()->has('extrasensList')) {
       $this->extrasensList = Sess::get('extrasensList');
     } else {
       $this->createExtrasens($names);
@@ -29,7 +31,7 @@ class Extrasensory
       $extrasens->setGuess($guess);
     }
 
-    Sess::set(['extrasensList' => $this->extrasensList]);
+    Sess::set('extrasensList', $this->extrasensList);
   }
 
   public function setResult(int $answer): void
