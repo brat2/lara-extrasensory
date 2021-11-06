@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Services\Extrasensory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(Extrasensory::class, function () {
+            return new Extrasensory(
+                new Request,
+                Config::get('extrasensList')
+            );
+        });
     }
 
     /**
