@@ -19,6 +19,14 @@ class MainController extends Controller
     ) {
         $this->extrasensory = $extrasensory;
         $this->user = $user;
+
+        $this->middleware(function ($request, $next) {
+
+            $this->extrasensory->setExtrasensList();
+            $this->user->setNumberList();
+
+            return $next($request);
+        });
     }
 
     public function start()
@@ -34,8 +42,6 @@ class MainController extends Controller
 
     public function showGuess()
     {
-        //  echo session('extrasensList');
-        //  dump(request());
         $extrasensList = $this->extrasensory->getExtrasensList();
         return view('guess', ['extrasensList' => $extrasensList]);
     }

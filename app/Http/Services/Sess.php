@@ -10,7 +10,7 @@ class Sess
   }
 
   public static function get(string $key)
-  { //echo session($key);
+  { 
     return unserialize(session($key));
   }
 }

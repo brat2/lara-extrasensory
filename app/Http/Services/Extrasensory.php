@@ -4,18 +4,18 @@ namespace App\Http\Services;
 
 use App\Models\Extrasens;
 use App\Http\Services\Sess;
+use Illuminate\Support\Facades\Config;
 
 class Extrasensory
 {
   private $extrasensList = [];
 
-  public function __construct(array $names)
-  { 
-    if (session('extrasensList') !== null) {
+  public function setExtrasensList()
+  {
+    if (session()->has('extrasensList')) {
       $this->extrasensList = Sess::get('extrasensList');
-      //dd($this->extrasensList);
     } else {
-      $this->createExtrasens($names);
+      $this->createExtrasens(Config::get('extrasensList'));
     }
   }
 
@@ -44,6 +44,8 @@ class Extrasensory
         $extrasens->setResult(-1);
       }
     }
+
+    Sess::set('extrasensList', $this->extrasensList);
   }
 
   private function createExtrasens(array $names): void

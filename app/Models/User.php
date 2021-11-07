@@ -3,17 +3,16 @@
 namespace App\Models;
 
 use App\Http\Services\Sess;
-use Illuminate\Http\Request;
 
 class User
 {
     private $numberList = [];
 
-    public function __construct(Request $request)
+    public function setNumberList()
     {
-        // if ($request->session()->has('numberList')) {
-        //     Sess::get('numberList');
-        // }
+        if (session()->has('numberList')) {
+            $this->numberList = Sess::get('numberList');
+        }
     }
 
     public function addNumber(int $number): void
