@@ -17,15 +17,15 @@
     </div>
 
     <div class="text-center pt-5">
-        @if(null !== session('error'))
+        @error('answer')
             <div class="alert alert-danger" role="alert">
-                {{ session('error') }}
+                {{ $message }}
             </div>
-        @endif
+        @enderror
         <h4>Введите загаданное число</h4>
         <form action="/answer" method="POST">
             @csrf
-            <input type="text" name="answer">
+            <input type="text" name="answer" value="{{ old('answer') }}">
             <input type="submit" value="отправить">
         </form>
     </div>
