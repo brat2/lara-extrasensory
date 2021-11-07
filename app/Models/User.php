@@ -11,9 +11,9 @@ class User
 
     public function __construct(Request $request)
     {
-        if ($request->session()->has('numberList')) {
-            Sess::get('numberList');
-        }
+        // if ($request->session()->has('numberList')) {
+        //     Sess::get('numberList');
+        // }
     }
 
     public function addNumber(int $number): void

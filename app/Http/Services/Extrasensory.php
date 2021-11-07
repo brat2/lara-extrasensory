@@ -4,16 +4,16 @@ namespace App\Http\Services;
 
 use App\Models\Extrasens;
 use App\Http\Services\Sess;
-use Illuminate\Http\Request;
 
 class Extrasensory
 {
   private $extrasensList = [];
 
-  public function __construct(Request $request, array $names)
-  {
-    if ($request->session()->has('extrasensList')) {
+  public function __construct(array $names)
+  { 
+    if (session('extrasensList') !== null) {
       $this->extrasensList = Sess::get('extrasensList');
+      //dd($this->extrasensList);
     } else {
       $this->createExtrasens($names);
     }
@@ -48,8 +48,8 @@ class Extrasensory
 
   private function createExtrasens(array $names): void
   {
-    array_map(function ($name) {
+    foreach ($names as $name) {
       $this->extrasensList[] = new Extrasens($name);
-    }, $names);
+    }
   }
 }

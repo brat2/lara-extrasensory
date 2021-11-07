@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Http\Services\Extrasensory;
-use Illuminate\Http\Request;
+use App\Http\Requests\AnswerRequest;
 
 class MainController extends Controller
 {
@@ -29,26 +29,23 @@ class MainController extends Controller
     public function makeGuess()
     {
         $this->extrasensory->makeGuess();
-        redirect('showGuess');
+        return redirect()->route('showGuess');
     }
 
     public function showGuess()
     {
+        //  echo session('extrasensList');
+        //  dump(request());
         $extrasensList = $this->extrasensory->getExtrasensList();
         return view('guess', ['extrasensList' => $extrasensList]);
     }
 
-    public function setResult(Request $request)
+    public function setResult(AnswerRequest $request)
     {
-        $request->validate([]);
-        if (!$request) {
-            $error = 'Введите двузначное число';
-            return view('showGuess');
-        }
         $answer = $request->answer;
         $this->extrasensory->setResult($answer);
         $this->user->addNumber($answer);
-        view('showResult');
+        return redirect()->route('showResult');
     }
 
     public function showResult()

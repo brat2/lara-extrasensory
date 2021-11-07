@@ -18,7 +18,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(Extrasensory::class, function () {
             return new Extrasensory(
-                new Request,
                 Config::get('extrasensList')
             );
         });
